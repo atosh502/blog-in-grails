@@ -21,6 +21,11 @@ class PostController {
         redirect(action: "index", method: "GET")
     }
 
+    def edit(Long userId, Post post){
+        postService.edit(userId, post)
+        redirect(action: "index", method: "GET")
+    }
+
     def delete(Long id){
         postService.delete(id)
         redirect(action: "index", method: "GET")

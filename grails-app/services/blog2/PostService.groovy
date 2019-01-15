@@ -13,9 +13,16 @@ class PostService {
         Post.list()
     }
 
-    def save(Post post){
-        post.save()
+    def edit(Long userId, Post post){
+        post.save(failOnError: true, flush: true)
     }
+
+    def save(Post post){
+        User user = User.findByUserName("admin")
+        user.addToPosts(post)
+        user.save(failOnError: true, flush: true)
+    }
+
 
     def delete(Long id){
         Post.get(id).delete()

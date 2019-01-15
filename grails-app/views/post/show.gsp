@@ -2,32 +2,48 @@
 <html>
 
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="cleanMain" />
+        <title>Show a Post</title>
     </head>
 
     <body>
 
-        <div class="nav" role="navigation">
-            <ul>
-                <li><g:link class="list" action="index">Posts list</g:link></li>
-            </ul>
-        </div>
+        <div class="container-fluid">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
 
-        <div id="show-post" class="content scaffold-show" role="main">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/post/index">Blog</a>
+                    </div>
 
-            <f:display bean="post" />
+                    <ul class="nav navbar-nav">
+                        <li><a href="/post/create">Create Post</a></li>
+                    </ul>
+                </div>
+            </nav>
 
-            <g:form resource="${this.post}" method="DELETE" class="xform">
-                <fieldset class="buttons">
-                    <input class="delete" type="submit" value="Delete"/>
-                </fieldset>
-            </g:form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Text</th>
+                </tr>
+                </thead>
 
-            <g:form resource="${this.post}" method="PUT" class="xform">
-                <fieldset class="buttons">
-                    <input class="edit" type="submit" value="Update" />
-                </fieldset>
-            </g:form>
+                <tbody>
+                    <tr>
+                        <td>${post.title}</td>
+                        <td>${post.text}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form method="post">
+                <div class="btn-group">
+                    <button class="btn btn-primary" type="submit" name="delete" formaction="/post/delete/${post.id}">Delete</button>
+                    <button class="btn btn-primary" type="submit" name="update" formaction="/post/update/${post.id}">Update</button>
+                </div>
+            </form>
 
         </div>
 
