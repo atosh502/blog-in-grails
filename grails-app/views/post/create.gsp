@@ -19,7 +19,7 @@
                 </div>
             </nav>
 
-            <form action="/post/save?id=1" method="post">
+            <form action="/post/save?id=${session.user.id}" method="post">
 
                 <div class="form-group">
                     <label for="post-title">Title:</label>

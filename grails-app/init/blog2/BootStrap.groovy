@@ -11,6 +11,7 @@ class BootStrap {
         println "Loading posts"
 
         User user = new User(userName: "admin", password: "admin").save(failOnError: true, flush: true)
+        new User(userName: "test", password: "test").save(failOnError: true, flush: true)
 
         new Post(title: "Learning Groovy",
                 text: "Groovy is a JVM based language that extends the core Java libraries.",

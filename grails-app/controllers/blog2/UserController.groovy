@@ -5,24 +5,24 @@ class UserController {
     def userService
 
     def login(){
-        // redirects to login screen
+        // redirect to the login page
     }
 
-    def authenticate(User _user){
-        def user = User.findByUserNameAndPassword(_user.userName, _user.password)
+    def authenticate(){
+        def user = User.findByUserNameAndPassword(params.userName, params.password)
         if (user){
             session.user = user
-            flash.message = "${user.userName} has logged in successfully!"
-            redirect(controller: "post", action: "list")
+            println "${user.userName} has logged in successfully!"
+            redirect(controller: "post", action: "index")
         } else {
-            flash.message = "Username or password mismatch"
+            println "Username or password mismatch"
             redirect(action: "login", controller: "user")
         }
     }
 
     def logout(){
-        flash.message = "${session.user.userName} has logged out"
+        println "${session.user.userName} has logged out"
         session.user = null
-        redirect(action: "list", controller: "post")
+        redirect(action: "index", controller: "post")
     }
 }
