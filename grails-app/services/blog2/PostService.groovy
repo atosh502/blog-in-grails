@@ -5,6 +5,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class PostService {
 
+    def userService
+
     def get(Long id){
         Post.get(id)
     }
@@ -13,16 +15,18 @@ class PostService {
         Post.list()
     }
 
-    def edit(Long userId, Post post){
+    def edit(Long postId, String title, String text){
+        Post post = Post.get(postId)
+        post.title = title
+        post.text = text
         post.save(failOnError: true, flush: true)
     }
 
-    def save(Post post){
-        User user = User.findByUserName("admin")
-        user.addToPosts(post)
-        user.save(failOnError: true, flush: true)
+    def save(Long id, String title, String text){
+        User user = userService.get(id)
+//        println user.id
+        new Post(user: user, title: title, text: text).save(failOnError: true, flush: true)
     }
-
 
     def delete(Long id){
         Post.get(id).delete()

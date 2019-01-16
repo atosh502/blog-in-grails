@@ -13,6 +13,5 @@ class Post {
     static constraints = {
         title(blank: false)
         text(blank: false)
-//        user(nullable: true)
     }
 }

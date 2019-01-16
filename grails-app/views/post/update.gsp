@@ -19,7 +19,7 @@
                 </div>
             </nav>
 
-            <form action="/post/edit/${post.user.id}" method="post">
+            <form action="/post/edit?postId=${post.id}" method="post">
 
                 <div class="form-group">
                     <label for="post-title">Title:</label>

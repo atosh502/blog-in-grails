@@ -19,7 +19,7 @@
                 </div>
             </nav>
 
-            <form action="/post/save" method="post">
+            <form action="/post/save?id=1" method="post">
 
                 <div class="form-group">
                     <label for="post-title">Title:</label>
