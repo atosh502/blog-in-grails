@@ -2,6 +2,8 @@ package blog2
 
 class BootStrap {
 
+    def encryptionService
+
     def init = { servletContext ->
         if (!Post.count())
             loadDatabase()
@@ -10,8 +12,11 @@ class BootStrap {
     private loadDatabase(){
         println "Loading posts"
 
-        User user = new User(userName: "admin", password: "admin").save(failOnError: true, flush: true)
-        new User(userName: "test", password: "test").save(failOnError: true, flush: true)
+        User user = new User(userName: "admin", password: encryptionService.encrypt("admin"))
+                .save(failOnError: true, flush: true)
+
+        new User(userName: "test", password: encryptionService.encrypt("test"))
+                .save(failOnError: true, flush: true)
 
         new Post(title: "Learning Groovy",
                 text: "Groovy is a JVM based language that extends the core Java libraries.",

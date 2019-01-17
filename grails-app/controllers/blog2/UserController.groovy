@@ -3,13 +3,14 @@ package blog2
 class UserController {
 
     def userService
+    def encryptionService
 
     def login(){
         // redirect to the login page
     }
 
     def authenticate(){
-        def user = User.findByUserNameAndPassword(params.userName, params.password)
+        def user = User.findByUserNameAndPassword(params.userName, encryptionService.encrypt(params.password))
         if (user){
             session.user = user
             println "${user.userName} has logged in successfully!"
