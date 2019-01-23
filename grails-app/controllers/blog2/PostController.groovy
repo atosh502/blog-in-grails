@@ -1,5 +1,8 @@
 package blog2
 
+import grails.plugin.springsecurity.annotation.Secured
+
+@Secured('isAuthenticated()')
 class PostController {
 
     def postService // dependency injection

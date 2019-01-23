@@ -17,21 +17,36 @@
                 </div>
             </nav>
 
-            <form action="/user/authenticate" method="post">
+            <sec:ifLoggedIn>
 
-                <div class="form-group">
-                    <label for="userName">Username:</label>
-                    <input type="text" class="form-control" id="userName" placeholder="Username" name="userName">
-                </div>
+                <form id="myForm" action="/logout/index" method="post" style="display: inline;">
+                    <input type="hidden" name="hiddenField" value="doesnt_matter" />
+                    <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
+                </form>
 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input class="form-control" id="password" placeholder="Password" name="password" type="password">
-                </div>
+            </sec:ifLoggedIn>
 
-                <input class="btn btn-primary" type="submit" value="Submit" name="submit">
+            <sec:ifNotLoggedIn>
 
-            </form>
+                <form action="/user/authenticate" method="post">
+
+                    <div class="form-group">
+                        <label for="userName">Username:</label>
+                        <input type="text" class="form-control" id="userName" placeholder="Username" name="userName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input class="form-control" id="password" placeholder="Password" name="password" type="password">
+                    </div>
+
+                    <input class="btn btn-primary" type="submit" value="Submit" name="submit">
+
+                </form>
+                <br>
+                <a href="/oauth/authenticate/google" class="btn btn-primary">Login with Google</a>
+
+            </sec:ifNotLoggedIn>
 
         </div>
 

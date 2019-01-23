@@ -1,5 +1,9 @@
 package blog2
 
+import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.security.core.context.SecurityContextHolder
+
+@Secured('permitAll')
 class UserController {
 
     def userService
@@ -21,9 +25,9 @@ class UserController {
         }
     }
 
-    def logout(){
-        println "${session.user.userName} has logged out"
-        session.user = null
-        redirect(action: "index", controller: "post")
-    }
+//    def logout(){
+//        println "${session.user.userName} has logged out"
+//        session.user = null
+//        redirect(action: "index", controller: "post")
+//    }
 }

@@ -17,6 +17,14 @@
 
                     <ul class="nav navbar-nav">
                         <li><a href="/post/create">Create Post</a></li>
+                        <li>
+                            <sec:ifLoggedIn>
+                                <form id="myForm" action="/logout/index" method="post" style="display: inline;">
+                                    <input type="hidden" name="hiddenField" value="doesnt_matter" />
+                                    <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
+                                </form>
+                            </sec:ifLoggedIn>
+                        </li>
                     </ul>
                 </div>
             </nav>
