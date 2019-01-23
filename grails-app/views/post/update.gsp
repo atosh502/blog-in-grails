@@ -16,6 +16,15 @@
                         <a class="navbar-brand" href="/post/index">Blog</a>
                     </div>
 
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <form id="myForm" action="/logout/index" method="post" style="display: inline;">
+                                <input type="hidden" name="hiddenField" value="doesnt_matter" />
+                                <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
+                            </form>
+                        </li>
+                    </ul>
+
                 </div>
             </nav>
 
