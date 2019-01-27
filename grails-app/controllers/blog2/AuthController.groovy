@@ -21,6 +21,12 @@ class AuthController implements GrailsConfigurationAware{
     static allowedMethods = [success: 'GET', logout: 'POST']
 
     // anonymous access allowed at /auth/success
+
+    @Secured('permitAll')
+    def login(){
+        redirect(action: 'login', controller: 'auth')
+    }
+
     @Secured('permitAll')
     def success(String token) {
         log.debug("Token value {}", token)

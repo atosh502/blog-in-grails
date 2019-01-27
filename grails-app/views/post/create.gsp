@@ -16,21 +16,10 @@
                         <a class="navbar-brand" href="/post/index">Blog</a>
                     </div>
 
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <sec:ifLoggedIn>
-                                <form id="myForm" action="/logout/index" method="post" style="display: inline;">
-                                    <input type="hidden" name="hiddenField" value="doesnt_matter" />
-                                    <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
-                                </form>
-                            </sec:ifLoggedIn>
-                        </li>
-                    </ul>
-
                 </div>
             </nav>
 
-            <form action="/post/save?id=${session.user.id}" method="post">
+            <form action="/post/save?id=${blog2.PostService.getLoggedUserId()}" method="post">
 
                 <div class="form-group">
                     <label for="post-title">Title:</label>
@@ -49,5 +38,17 @@
 
         </div>
 
+        <div class="myFooter container-fluid">
+
+            <sec:ifLoggedIn>
+                Currently logged in as: ${blog2.PostService.getLoggedUserFullName()}
+                <form id="myForm" action="/logout/index" method="post" style="display: inline;">
+                    <input type="hidden" name="hiddenField" value="doesnt_matter" />
+                    <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
+                </form>
+            </sec:ifLoggedIn>
+
+        </div>
+    
     </body>
 </html>

@@ -21,15 +21,15 @@ class PostController {
 
     def save(){
 //        println params
-        Long id = params.long("id") // groovy cannot cast params.id automatically into a long
+        String userId = params.id
         String title = params.title
         String text = params.text
-        postService.save(id, title, text)
+        postService.save(userId, title, text)
         redirect(action: "index", method: "GET")
     }
 
     def edit(){
-        println params
+//        println params
         postService.edit(params.long("postId"), params.title, params.text)
         redirect(action: "index", method: "GET")
     }
