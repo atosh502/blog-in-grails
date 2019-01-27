@@ -42,18 +42,6 @@ class PostService {
     def update(Post post){
         post.save()
     }
-
-    def static getLoggedUserId(){
-        return springSecurityService.principal.username
-    }
-
-    def static getLoggedUserEmail(){
-        return springSecurityService.principal.userProfile.emails[0]
-    }
-
-    def static getLoggedUserFullName(){
-        return springSecurityService.principal.userProfile.displayName
-    }
 }
 
 

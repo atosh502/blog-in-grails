@@ -40,7 +40,7 @@
         <div class="myFooter container-fluid">
 
             <sec:ifLoggedIn>
-                Currently logged in as: ${blog2.PostService.getLoggedUserFullName()}
+                Currently logged in as: ${applicationContext.springSecurityService.principal.userProfile.displayName}
                 <form id="myForm" action="/logout/index" method="post" style="display: inline;">
                     <input type="hidden" name="hiddenField" value="doesnt_matter" />
                     <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
