@@ -1,6 +1,8 @@
 package blog2
 
-class Post {
+import gorm.logical.delete.LogicalDelete
+
+class Post implements LogicalDelete<Post>{
 
     String title
     String text

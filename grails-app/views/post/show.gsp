@@ -18,6 +18,7 @@
 
                     <ul class="nav navbar-nav">
                         <li><a href="/post/create">Create Post</a></li>
+                        <li><a href="/post/archived">Archived</a></li>
                     </ul>
 
                 </div>

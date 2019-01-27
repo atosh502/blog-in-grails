@@ -36,11 +36,17 @@ class PostService {
     }
 
     def delete(Long id){
-        Post.get(id).delete()
+        Post.get(id).delete(failOnError: true, flush: true)
     }
 
     def update(Post post){
-        post.save()
+        post.save(failOnError: true, flush: true)
+    }
+
+    def archived(){
+        def results = Post.withDeleted { Post.findAll{deleted == true} }
+        println results
+        return results
     }
 }
 

@@ -39,6 +39,11 @@ class PostController {
         redirect(action: "index", method: "GET")
     }
 
+    def archived(){
+        // return only the Posts that were deleted
+        respond postService.archived()
+    }
+
     def update(Long id){
         respond postService.get(id)
     }
