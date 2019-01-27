@@ -23,7 +23,7 @@ grails {
 
                    storage {
                        jwt {
-                           secret = "foobar123"*4
+                           secret = "changeThisInProduction345690andItMustBeThirtyTwoCharactersLongchangeThisInProduction345690andItMustBeThirtyTwoCharactersLong"
                        }
                    }
                }

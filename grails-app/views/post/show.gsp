@@ -18,16 +18,7 @@
 
                     <ul class="nav navbar-nav">
                         <li><a href="/post/create">Create Post</a></li>
-                        <li>
-                            <sec:ifLoggedIn>
-                                <form id="myForm" action="/logout/index" method="post" style="display: inline;">
-                                    <input type="hidden" name="hiddenField" value="doesnt_matter" />
-                                    <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
-                                </form>
-                            </sec:ifLoggedIn>
-                        </li>
                     </ul>
-
 
                 </div>
             </nav>
@@ -51,11 +42,23 @@
             <form method="post">
                 <div class="btn-group">
                     <button class="btn btn-primary" type="submit" name="delete" formaction="/post/delete/${post.id}"
-                            <g:if test="${post.user.id != session.user.id}">disabled</g:if>>Delete</button>
+                            <g:if test="${post.userId != blog2.PostService.getLoggedUserId()}">disabled</g:if>>Delete</button>
                     <button class="btn btn-primary" type="submit" name="update" formaction="/post/update/${post.id}"
-                            <g:if test="${post.user.id != session.user.id}">disabled</g:if>>Update</button>
+                            <g:if test="${post.userId != blog2.PostService.getLoggedUserId()}">disabled</g:if>>Update</button>
                 </div>
             </form>
+
+        </div>
+
+        <div class="myFooter container-fluid">
+
+            <sec:ifLoggedIn>
+                Currently logged in as: ${blog2.PostService.getLoggedUserFullName()}
+                <form id="myForm" action="/logout/index" method="post" style="display: inline;">
+                    <input type="hidden" name="hiddenField" value="doesnt_matter" />
+                    <a href="#" onclick="document.getElementById('myForm').submit();">Logout</a>
+                </form>
+            </sec:ifLoggedIn>
 
         </div>
 

@@ -1,11 +1,18 @@
 package blog2
 
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.SpringSecurityService
+import org.grails.web.json.JSONObject
+import org.springframework.security.core.context.SecurityContextHolder
+
+import javax.servlet.ServletContext
+import java.security.Principal
 
 @Transactional
 class PostService {
 
-    def userService
+//    def userService
+    static SpringSecurityService springSecurityService
 
     def get(Long id){
         Post.get(id)
@@ -22,10 +29,10 @@ class PostService {
         post.save(failOnError: true, flush: true)
     }
 
-    def save(Long id, String title, String text){
-        User user = userService.get(id)
+    def save(String userId, String title, String text){
+//        User user = userService.get(id)
 //        println user.id
-        new Post(user: user, title: title, text: text).save(failOnError: true, flush: true)
+        new Post(userId: userId, title: title, text: text).save(failOnError: true, flush: true)
     }
 
     def delete(Long id){
@@ -35,4 +42,18 @@ class PostService {
     def update(Post post){
         post.save()
     }
+
+    def static getLoggedUserId(){
+        return springSecurityService.principal.username
+    }
+
+    def static getLoggedUserEmail(){
+        return springSecurityService.principal.userProfile.emails[0]
+    }
+
+    def static getLoggedUserFullName(){
+        return springSecurityService.principal.userProfile.displayName
+    }
 }
+
+
