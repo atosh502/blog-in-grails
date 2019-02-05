@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
+// TODO: change this to reflect the change in Post and User domain classes
 @Secured('permitAll')
 class FileController {
 
@@ -28,19 +29,18 @@ class FileController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
 
         reader.splitEachLine(',') { fields ->
+
             def updatedPost = new UpdatedPost(title: fields[1].trim(),
                                                 text: fields[2].trim(),
-                                                userId: fields[3].trim(),
+                                                user: User.findByFullName(fields[3].trim()),
                                                 date: new Date(fields[4].trim()),
                                                 path: fields[5].trim())
 
-            def userRole = new UserRole(userId: fields[3].trim(), userRole: fields[6].trim())
+//            def userRole = new UserRole(userId: fields[3].trim(), userRole: fields[6].trim())
 
             updatedPost.save(flush: true, failOnError: true)
-            userRole.save(flush: true, failOnError: true)
+//            userRole.save(flush: true, failOnError: true)
 
-            println("Saved " + updatedPost.toString())
-            println("Saved " + userRole.toString())
         }
 
         redirect(action: 'index', controller: 'post')

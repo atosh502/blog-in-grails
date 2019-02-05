@@ -30,7 +30,7 @@
         <div class="myFooter container-fluid">
 
             <sec:ifNotLoggedIn>
-                <a href="/oauth/authenticate/google">Login with Google</a>
+                <a href="/oauth/authenticate/google">Login/Signup with Google</a>
             </sec:ifNotLoggedIn>
 
             <sec:ifLoggedIn>

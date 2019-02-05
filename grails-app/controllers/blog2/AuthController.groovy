@@ -6,13 +6,18 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.rest.token.reader.TokenReader
 import groovy.util.logging.Slf4j
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jws
+import io.jsonwebtoken.JwtException
+import io.jsonwebtoken.Jwts
+import org.springframework.security.core.context.SecurityContextHolder
 
 import javax.servlet.http.Cookie
+import javax.xml.bind.DatatypeConverter
 
 @Slf4j
 class AuthController implements GrailsConfigurationAware{
 
-    SpringSecurityService springSecurityService
     TokenReader tokenReader
     int jwtExpiration
 

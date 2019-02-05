@@ -5,10 +5,14 @@ import grails.plugin.springsecurity.annotation.Secured
 @Secured('isAuthenticated()')
 class PostController {
 
-    def postService // dependency injection
+    def postService
 
     def index() {
         respond postService.list()
+    }
+
+    def tag(String tag){
+        respond postService.getPostsByTag(tag)
     }
 
     def show(Long id){
@@ -20,16 +24,17 @@ class PostController {
     }
 
     def save(){
-//        println params
-        String userId = params.id
+        String userName = params.id
         String title = params.title
         String text = params.text
-        postService.save(userId, title, text)
+        String tags = params.tags
+
+        User user = User.findByUserName(userName)
+        postService.save(user.id, title, text, tags)
         redirect(action: "index", method: "GET")
     }
 
     def edit(){
-//        println params
         postService.edit(params.long("postId"), params.title, params.text)
         redirect(action: "index", method: "GET")
     }

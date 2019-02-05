@@ -11,14 +11,21 @@ import java.security.Principal
 @Transactional
 class PostService {
 
-//    def userService
-    static SpringSecurityService springSecurityService
-
     def get(Long id){
         Post.get(id)
     }
 
     def list(){
+
+        // entry after login - check if the user already exists in the database otherwise add the user to the db
+        def map = SecurityContextHolder.getContext().getAuthentication().getPrincipal().getProperties()
+        User user = User.findByUserName(map.username);
+
+        if (user == null){
+            // a new user
+            new User(fullName: map.userProfile.displayName, userName: map.username).save(failOnError: true, flush: true);
+        }
+
         Post.list()
     }
 
@@ -29,10 +36,18 @@ class PostService {
         post.save(failOnError: true, flush: true)
     }
 
-    def save(String userId, String title, String text){
-//        User user = userService.get(id)
-//        println user.id
-        new Post(userId: userId, title: title, text: text).save(failOnError: true, flush: true)
+    def save(Long userId, String title, String text, String tagString){
+        User user = User.get(userId)
+        def tagNames = tagString.split(",").collect{ tag -> tag.trim()}
+        def tags = []
+        for (def tagName : tagNames){
+            def tag = Tag.findByName(tagName)
+            if (tag == null){
+                tag = new Tag(name: tagName).save(failOnError: true, flush: true)
+            }
+            tags.add(tag)
+        }
+        new Post(user: user, title: title, text: text, tags: tags).save(failOnError: true, flush: true)
     }
 
     def delete(Long id){
@@ -45,8 +60,12 @@ class PostService {
 
     def archived(){
         def results = Post.withDeleted { Post.findAll{deleted == true} }
-        println results
         return results
+    }
+
+    def getPostsByTag(String tag){
+        def posts =  Tag.findByName(tag).posts // returns a Set
+        return posts.asList()
     }
 }
 

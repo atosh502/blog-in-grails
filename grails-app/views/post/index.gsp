@@ -40,6 +40,16 @@
                     </g:each>
                 </tbody>
             </table>
+
+            <div class="container-fluid">
+                Tags: <br />
+                <ul>
+                    <g:each in="${blog2.Tag.list()}" var="tag">
+                        <li><a href="/post/tag?tag=${tag.name}">${tag.name}</a></li>
+                    </g:each>
+                </ul>
+            </div>
+
         </div>
 
         <div class="myFooter container-fluid">

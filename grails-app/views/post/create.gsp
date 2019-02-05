@@ -19,6 +19,7 @@
                 </div>
             </nav>
 
+            %{--// TODO: gotcha here!!--}%
             <form action="/post/save?id=${applicationContext.springSecurityService.principal.username}"
                   method="post">
 
@@ -31,6 +32,11 @@
                     <label for="post-text">Text:</label>
                     <textarea class="form-control" id="post-text" placeholder="" name="text">
                     </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="post-tags">Tags:</label>
+                    <input type="text" class="form-control" id="post-tags" placeholder="Add tags separated by comma" name="tags">
                 </div>
 
                 <input class="btn btn-primary" type="submit" value="Create" name="create">

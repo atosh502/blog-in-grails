@@ -43,12 +43,12 @@
             <form method="post">
                 <div class="btn-group">
                     <button class="btn btn-primary" type="submit" name="delete" formaction="/post/delete/${post.id}"
-                            <g:if test="${post.userId != applicationContext.springSecurityService.principal.username}">
+                            <g:if test="${post.user.userName != applicationContext.springSecurityService.principal.username}">
                                 disabled
                             </g:if>>Delete</button>
 
                     <button class="btn btn-primary" type="submit" name="update" formaction="/post/update/${post.id}"
-                            <g:if test="${post.userId != applicationContext.springSecurityService.principal.username}">
+                            <g:if test="${post.user.userName != applicationContext.springSecurityService.principal.username}">
                                 disabled
                             </g:if>>Update</button>
                 </div>
