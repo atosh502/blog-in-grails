@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+    compile 'org.grails.plugins:mail:2.0.0'
     compile "org.grails.plugins:gorm-logical-delete:2.0.0.BUILD-SNAPSHOT"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
