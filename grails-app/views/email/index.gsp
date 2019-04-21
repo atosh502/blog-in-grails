@@ -17,7 +17,7 @@
 
                 <h3>Email Sender Form</h3>
 
-                    <form action="/email/send" method="post">
+                    <form action="/email/send" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <label for="receiverEmail">To:</label>
@@ -35,6 +35,10 @@
                             <label for="emailBody">Message:</label>
                             <textarea rows="4" cols="50" id="emailBody" placeholder="Message body" name="body">
                             </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="file" name="attachment" />
                         </div>
 
                         <button type="submit" class="btn btn-primary">Send</button>

@@ -8,12 +8,23 @@ class EmailController {
     def index(){}
 
     def send() {
-        println params
+
+        def multipartFile = request.getFile('attachment')
+
         sendMail {
-            println params
+
+            multipart true
+
             to params.address
             subject params.subject
             text params.body
+
+            if (multipartFile && !multipartFile.empty){
+                File tmpFile = new File(System.getProperty("java.io.tmpdir") +
+                        System.getProperty("file.separator") + multipartFile.getOriginalFilename());
+                multipartFile.transferTo(tmpFile)
+                attach tmpFile
+            }
         }
 
         flash.message = "Message sent at " + new Date()
