@@ -10,20 +10,23 @@ class EmailController {
     def send() {
 
         def multipartFile = request.getFile('attachment')
+        def emails = params.address.tokenize()
 
-        sendMail {
+        for (email in emails){
 
-            multipart true
+            sendMail {
 
-            to params.address
-            subject params.subject
-            text params.body
+                multipart true
+                to email
+                subject params.subject
+                html view: "/email/template", model: [email: email, message: params.body]
 
-            if (multipartFile && !multipartFile.empty){
-                File tmpFile = new File(System.getProperty("java.io.tmpdir") +
-                        System.getProperty("file.separator") + multipartFile.getOriginalFilename());
-                multipartFile.transferTo(tmpFile)
-                attach tmpFile
+                if (multipartFile && !multipartFile.empty){
+                    File tmpFile = new File(System.getProperty("java.io.tmpdir")) + System.getProperty("file.separator") +
+                            multipartFile.getOriginalFilename()
+                    multipartFile.transferTo(tmpFile)
+                    attach tmpFile
+                }
             }
         }
 

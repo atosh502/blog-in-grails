@@ -21,8 +21,8 @@
 
                         <div class="form-group">
                             <label for="receiverEmail">To:</label>
-                            <input type="email" class="form-control" id="receiverEmail" aria-describedby="emailHelp"
-                                   placeholder="Enter email" name="address">
+                            <input type="text" class="form-control" id="receiverEmail" aria-describedby="emailHelp"
+                                   placeholder="Enter emails separated by space" name="address">
                         </div>
 
                         <div class="form-group">
@@ -33,7 +33,7 @@
 
                         <div class="form-group">
                             <label for="emailBody">Message:</label>
-                            <textarea rows="4" cols="50" id="emailBody" placeholder="Message body" name="body">
+                            <textarea rows="4" cols="50" id="emailBody" name="body">
                             </textarea>
                         </div>
 
