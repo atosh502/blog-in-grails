@@ -34,5 +34,28 @@ class BootStrap {
                 user: user, tags: [grails, web_framework, groovy])
                 .save(failOnError: true, flush: true)
 
+        Board weeklyBoard = new Board(boardName: "My Weekly Board").save(failOnError: true, flush: true)
+
+        List todo = new List(listName: "todo", board: weeklyBoard)
+                .save(failOnError: true, flush: true)
+        List done = new List(listName: "done", board: weeklyBoard)
+                .save(failOnError: true, flush: true)
+
+        Card homework = new Card(cardName: "Homework", cardDescription: "Complete homeworks of DSAP.", list: todo)
+                .save(failOnError: true, flush: true)
+        Card lab = new Card(cardName: "Practical", cardDescription: "Do lab exercises.", list: done)
+                .save(failOnError: true, flush: true)
+        Card travel = new Card(cardName: "Travel", cardDescription: "Visit a new place.", list: todo)
+                .save(failOnError: true, flush: true)
+        Card book = new Card(cardName: "Book", cardDescription: "Read a book.", list: done)
+                .save(failOnError: true, flush: true)
+
+        todo.addToCards(homework)
+        todo.addToCards(travel)
+        done.addToCards(lab)
+        done.addToCards(book)
+
+        weeklyBoard.addToLists(todo)
+        weeklyBoard.addToLists(done)
     }
 }
