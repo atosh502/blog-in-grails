@@ -24,25 +24,30 @@
                 </div>
             </nav>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Boards</th>
-                </tr>
-                </thead>
+            <h4><b>Boards</b></h4>
 
-                <tbody>
+            <input class="btn btn-primary" type="submit" value="Add Board" name="showAddBoardForm"
+                   onclick="displayForm('addBoardForm', 'addBoardButton')" id="addBoardButton">
+
+            <form action="/board/addBoard" method="post" class="form-inline" hidden="hidden"
+                  id="addBoardForm">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="board-name" placeholder="Add Board Name" name="boardName">
+                    <input class="btn btn-primary" type="submit" value="Add Board" name="addBoard">
+                </div>
+
+            </form>
+
+            <ol>
                 <g:each in="${boardList}" var="board">
-                    <tr>
-                        <td>
-                            <g:link controller="board" action="show" id="${board.id}">
-                                ${board.boardName}
-                            </g:link>
-                        </td>
-                    </tr>
+                    <li>
+                        <g:link controller="board" action="show" id="${board.id}">
+                            ${board.boardName}
+                        </g:link>
+                    </li>
                 </g:each>
-                </tbody>
-            </table>
+            </ol>
 
         </div>
 
@@ -56,5 +61,17 @@
 
             </sec:ifLoggedIn>
         </div>
+
+        <script>
+            function displayForm(formId, buttonId) {
+                console.log(formId, buttonId);
+                var form = document.getElementById(formId);
+                var button = document.getElementById(buttonId);
+                button.style.display = "none";
+                form.style.display = "block";
+            }
+
+        </script>
+
     </body>
 </html>

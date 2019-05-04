@@ -51,7 +51,7 @@
 
                         <h5><b>Cards</b></h5>
 
-                            <small hidden> <!-- just some variables -->
+                            <small hidden> <!-- just some variables TODO: there must be a better way to do this-->
                                 ${addCardFormId = 'addCardForm' + String.valueOf(list.id)}
                                 ${addCardButtonId = 'addCardButton' + String.valueOf(list.id)}
                             </small>
@@ -76,6 +76,40 @@
 
                                     <p><b>Name:</b> ${card.cardName}</p>
                                     <p><b>Description:</b> ${card.cardDescription}</p>
+
+                                    <input class="btn btn-primary" type="submit" value="Edit Card" name="showEditCardForm"
+                                           onclick="displayFormEditCard(${list.id}, ${card.id}, 'editCardButton', 'editCardForm')"
+                                           id="${"editCardButton" + list.id + card.id}">
+
+                                    <form action="/card/editCard?cardId=${card.id}" method="post" class="form-inline" hidden="hidden"
+                                          id="${"editCardForm" + list.id + card.id}">
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="edit-card-name" value="${card.cardName}" name="cardName">
+                                            <input type="textarea" class="form-control" id="edit-card-desc" value="${card.cardDescription}" name="cardDesc">
+                                            <input class="btn btn-primary" type="submit" value="Update Card" name="updateCard">
+                                        </div>
+
+                                    </form>
+
+                                    <input class="btn btn-primary" type="submit" value="Move Card" name="showMoveCardForm"
+                                           onclick="displayFormMoveCard(${list.id}, ${card.id}, 'moveCardButton', 'moveCardForm', 'editCardButton')"
+                                           id="${"moveCardButton" + list.id + card.id}">
+
+                                    <form action="/card/moveCard?cardId=${card.id}" method="post" class="form-inline"
+                                        hidden="hidden" id="${"moveCardForm" + list.id + card.id}">
+
+                                        <div class="form-group">
+                                            <input list="definedListNames" name="moveToList">
+                                            <datalist id="definedListNames">
+                                                <g:each in="${board.lists}" var="definedList">
+                                                    <option value="${definedList.listName}">
+                                                </g:each>
+                                            </datalist>
+                                            <input class="btn btn-primary" type="submit" value="Move to" name="moveTo">
+                                        </div>
+
+                                    </form>
 
                                 </li>
                             </g:each>
@@ -105,12 +139,30 @@
                 console.log(formId, buttonId);
                 var form = document.getElementById(formId);
                 var button = document.getElementById(buttonId);
-                button.style.display = "none";
-                form.style.display = "block";
+                button.style.display = "none"; // hide the button
+                form.style.display = "block"; // show the form
             }
 
             function displayFormCard(id){
                 displayForm('addCardForm' + id, 'addCardButton' + id)
+            }
+
+            function displayFormEditCard(listId, cardId, editCardButton, editCardForm) {
+                var buttonId = editCardButton + listId + cardId;
+                var formId = editCardForm + listId + cardId;
+                displayForm(formId, buttonId);
+            }
+
+            function displayFormMoveCard(listId, cardId, moveCardButtonPrefix, moveCardFormPrefix, editCardButtonPrefix){
+                var editCardButtonId = editCardButtonPrefix + listId + cardId;
+                var moveCardButtonId = moveCardButtonPrefix + listId + cardId;
+                var moveCardFormId = moveCardFormPrefix + listId + cardId;
+                var editCardButton = document.getElementById(editCardButtonId);
+                var moveCardButton = document.getElementById(moveCardButtonId);
+                var moveCardForm = document.getElementById(moveCardFormId);
+                moveCardForm.style.display = "block";
+                editCardButton.style.display = "none";
+                moveCardButton.style.display = "none";
             }
         </script>
 

@@ -21,4 +21,10 @@ class BoardController {
 
         redirect(action: 'show', id: board.id)
     }
+
+    def addBoard(){
+        Board board = new Board(boardName: params.boardName).save(failOnError: true, flush: true)
+
+        redirect(action: 'index')
+    }
 }
